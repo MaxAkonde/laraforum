@@ -13,12 +13,16 @@
                     <span class="badge badge-primary">{{ $topic->user->name }}</span>
                 </div>
                 <div class="d-flex justify-content-between align-items-center mt-5">
-                    <a href="{{ route('topics.edit', $topic) }}" class="btn btn-warning">Editer ce topic</a>
-                    <form action="{{ route('topics.destroy', $topic) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Supprimer ce topic</button>
-                    </form>
+                    @can('update', $topic)
+                        <a href="{{ route('topics.edit', $topic) }}" class="btn btn-warning">Editer ce topic</a>
+                    @endcan
+                    @can('delete', $topic)
+                        <form action="{{ route('topics.destroy', $topic) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Supprimer ce topic</button>
+                        </form>
+                    @endcan
                 </div>
             </div>
         </div>

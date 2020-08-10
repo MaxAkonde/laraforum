@@ -70,6 +70,8 @@ class TopicController extends Controller
      */
     public function edit(Topic $topic)
     {
+        $this->authorize('update', $topic);
+
         return view('topics.edit', compact('topic'));
     }
 
@@ -82,6 +84,8 @@ class TopicController extends Controller
      */
     public function update(Request $request, Topic $topic)
     {
+        $this->authorize('update', $topic);
+
         $data = $request->validate([
             'title' => 'required|min:5',
             'content' => 'required|min:10'
@@ -100,6 +104,8 @@ class TopicController extends Controller
      */
     public function destroy(Topic $topic)
     {
+        $this->authorize('delete', $topic);
+
         Topic::destroy($topic->id);
 
         return redirect('/');
