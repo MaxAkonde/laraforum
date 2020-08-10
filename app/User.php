@@ -38,6 +38,6 @@ class User extends Authenticatable
     ];
 
     public function topics() {
-        return $this->hasMany('App\Topics');
+        return $this->hasMany('App\Topic');
     }
 }

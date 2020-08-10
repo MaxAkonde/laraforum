@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class TopicController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +30,7 @@ class TopicController extends Controller
      */
     public function create()
     {
-        //
+        return view('topics.create');
     }
 
     /**
@@ -37,7 +41,14 @@ class TopicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|min:5',
+            'content' => 'required|min:10'
+        ]);
+
+        $topic = auth()->user()->topics()->create($data);
+
+        return redirect()->route('topics.show', $topic->id);
     }
 
     /**
@@ -48,7 +59,7 @@ class TopicController extends Controller
      */
     public function show(Topic $topic)
     {
-        //
+        return view('topics.show', compact('topic'));
     }
 
     /**
@@ -59,7 +70,7 @@ class TopicController extends Controller
      */
     public function edit(Topic $topic)
     {
-        //
+        return view('topics.edit', compact('topic'));
     }
 
     /**
@@ -71,7 +82,14 @@ class TopicController extends Controller
      */
     public function update(Request $request, Topic $topic)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|min:5',
+            'content' => 'required|min:10'
+        ]);
+
+        $topic->update($data);
+
+        return redirect()->route('topics.show', $topic);
     }
 
     /**
@@ -82,6 +100,8 @@ class TopicController extends Controller
      */
     public function destroy(Topic $topic)
     {
-        //
+        Topic::destroy($topic->id);
+
+        return redirect('/');
     }
 }
