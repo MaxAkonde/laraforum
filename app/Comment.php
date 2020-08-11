@@ -12,6 +12,10 @@ class Comment extends Model
         return $this->morphTo();
     }
 
+    public function comments() {
+        return $this->morphMany('App\Comment', 'commentable')->latest();
+    }
+
     public function user() {
         return $this->belongsTo('App\User');
     }
