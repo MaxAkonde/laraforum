@@ -39,11 +39,22 @@
         <h5>Commentaires</h5>
         @forelse ($topic->comments as $comment)
             <div class="card mb-2">
-                <div class="card-body">
-                    {{ $comment->content }}
-                    <div class="d-flex justify-content-between align-items-center">
-                        <small>Posté le {{ $comment->created_at->format('d/m/Y') }}</small>
-                        <span class="badge badge-primary">{{ $comment->user->name }}</span>
+                <div class="card-body d-flex justify-content-between">
+                    <div>
+                        {{ $comment->content }}
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small>Posté le {{ $comment->created_at->format('d/m/Y') }}</small>
+                            <span class="badge badge-primary">{{ $comment->user->name }}</span>
+                        </div>
+                    </div>
+                    <div>
+                        @if (!$topic->solution && auth()->user()->id === $topic->user_id)
+                            <solution-button topic-id="{{ $topic->id }}" comment-id="{{ $comment->id }}" ></solution-button>
+                        @else
+                            @if ($topic->solution === $comment->id)
+                                <h4><span class="badge badge-success">Marqué comme solution</span></h4>
+                            @endif
+                        @endif
                     </div>
                 </div>
             </div>

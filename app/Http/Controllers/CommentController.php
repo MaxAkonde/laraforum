@@ -40,4 +40,15 @@ class CommentController extends Controller
 
         return redirect()->back();
     }
+
+    public function markedAsSolution(Topic $topic, Comment $comment) {
+        if(auth()->user()->id === $topic->user_id) {
+            $topic->solution = $comment->id;
+            $topic->save();
+
+            return response()->json(['success' => ['success' => 'Marqué comme solution']], 200);
+        } else {
+            return response()->json(['errors' => ['error' => 'Utilisateur non valide']], 401);
+        }
+    }
 }
