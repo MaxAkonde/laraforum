@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Topic;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\DatabaseNotification;
 
 class TopicController extends Controller
 {
@@ -60,6 +61,12 @@ class TopicController extends Controller
     public function show(Topic $topic)
     {
         return view('topics.show', compact('topic'));
+    }
+
+    public function showFromNotification(Topic $topic, DatabaseNotification $notification) {
+
+        $notification->markAsRead();
+        return view('topic.show', compact('topic'));
     }
 
     /**

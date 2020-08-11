@@ -21,6 +21,8 @@ Route::post('/commentReply/{comment}', 'CommentController@storeCommentReply')->n
 
 Route::post('/markedAsSolution/{topic}/{comment}', 'CommentController@markedAsSolution')->name('comments.markedAsSolution');
 
+Route::get('showFromNotification/{topic}/{notification}', 'TopicController@showFromNotification')->name('topics.showFromNotification');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
