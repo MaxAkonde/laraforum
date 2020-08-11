@@ -50,7 +50,7 @@ class CommentController extends Controller
             $topic->solution = $comment->id;
             $topic->save();
 
-            return response()->json(['success' => ['success' => 'Marqué comme solution']], 200);
+            return response()->json(['success' => ['success' => 'Marquer comme solution']], 200);
         } else {
             return response()->json(['errors' => ['error' => 'Utilisateur non valide']], 401);
         }

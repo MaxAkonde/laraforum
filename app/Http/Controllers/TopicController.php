@@ -66,7 +66,7 @@ class TopicController extends Controller
     public function showFromNotification(Topic $topic, DatabaseNotification $notification) {
 
         $notification->markAsRead();
-        return view('topic.show', compact('topic'));
+        return view('topics.show', compact('topic'));
     }
 
     /**

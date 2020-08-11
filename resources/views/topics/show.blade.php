@@ -52,7 +52,7 @@
                             <solution-button topic-id="{{ $topic->id }}" comment-id="{{ $comment->id }}" ></solution-button>
                         @else
                             @if ($topic->solution === $comment->id)
-                                <h4><span class="badge badge-success">Marqué comme solution</span></h4>
+                                <h6><span class="badge badge-success">Marquer comme solution</span></h6>
                             @endif
                         @endif
                     </div>
